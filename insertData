@@ -1,0 +1,23 @@
+INSERT INTO OWNER
+VALUES
+('jimmy','pop','FranktheTank@car','Individual','2016-04-18'),
+('beth','lizzy','beebop@.com','Individual','2019-04-17'),
+('william','fredrich','lazyslee@gmrail','Individual','2013-04-23'),
+('betheny','leeper','bigfrog@gmail.com','Corporation','2017-03-18'),
+('franko','mine','redrobin@gmail.com','Individual','2018-05-19');
+
+INSERT INTO EMPLOYEE
+VALUES
+('deet','wompus','bedtalks@gmail.com','1-342-128-1278','red shirt','1','2016-03-17'),
+('devin','gilmore','flagrocker@gmail.com','1-787-127-1101','manager','2','2014-01-15'),
+('Elly','blake','fatfags@gmail.com','1-238-190-2012','red shirt','3','2015-02-16'),
+('Mike','bigums','bestrate@gmail.com','1-200-910-2019','trimmer','1','2015-02-16'),
+('biff','backhand','rosefloss@gmail.com','1-219-201-7878','trimmer','2','2017-02-17');
+
+INSERT INTO PAYMENT
+VALUES
+('1','1213-1211-1211-3131','9101-1213-1231-8732',NULL,NULL,NULL,'paid','2016-01-02'),
+('2',NULL,NULL,'1921-9102-1213-9812','2017-02-01','301','paid','2016-01-03'),
+('1','8781-1231-2931-9878','1281-2312-2177-8712',NULL,NULL,NULL,'paid','2016-01-04'),
+('1','2812-1281-2911-9661','1267-4312-8721-9811',NULL,NULL,NULL,'paid','2016-02-11'),
+('2',NULL,NULL,'7813-2118-9871-1289','2018-02-01','118','paid','2016-02-12');
