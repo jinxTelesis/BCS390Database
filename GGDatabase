@@ -1,0 +1,143 @@
+CREATE TABLE OWNER (
+OwnerID Int NOT NULL IDENTITY(1,1),
+FirstName varchar(60) NOT NULL,
+LastName varchar(60) NOT NULL,
+OwnerEmail varchar(60) NULL,
+OwnerType Char(12) NULL,
+DateAdded datetime NULL default GetDate()
+CONSTRAINT OWNER_PK PRIMARY KEY(OwnerID),
+CONSTRAINT OWNER_TYPE_CHECK CHECK
+(OwnerType IN ('Individual','Corporation'))
+);
+
+CREATE TABLE OWNED_PROPERTY (
+   PropertyID        Int         NOT NULL IDENTITY(1,1),
+   PropertyName      varchar(50) NOT NULL,
+   PropertyType      char(25)    NOT NULL,
+   StreetNum         Char(35)    NOT NULL,
+   Street2           Char(25)    NULL,
+   StreetName        Char(50)    NOT NULL,
+   City              Char(35)    NOT NULL,
+   [State]           Char(2)     NOT NULL,
+   ZIP               Char(10)    NOT NULL,
+   OwnerID           Int         NOT NULL,
+   PaymentID         Int         NOT NULL,
+   DateAdded         datetime    NULL default GetDate()
+   CONSTRAINT     OWNED_PROPERTY_PK PRIMARY KEY (PropertyID),
+   CONSTRAINT     PROPERTY_OWNER_FK FOREIGN KEY (OwnerID)
+   REFERENCES OWNER(OwnerID)
+   ON DELETE NO ACTION
+   ON UPDATE NO ACTION,
+   CONSTRAINT
+   PROPERTY_PAYMENT_FK  FOREIGN KEY (PaymentID)
+   REFERENCES PAYMENT (PaymentID)
+   ON DELETE NO ACTION
+   ON UPDATE NO ACTION,
+   CONSTRAINT PROPERTY_TYPE_CHECK2 CHECK
+   (PropertyType IN ('Office','Apartments','Private Residence')));
+
+/* -- mine 
+CREATE TABLE OWNED_PROPERTY(
+PropertyID Int NOT NULL IDENTITY(1,1),
+PropertyName varchar(50) NOT NULL,
+PropertyType char(25) NOT NULL,
+StreetNum Char(35) NOT NULL,
+Street2 Char(25) NULL,
+StreetName Char(50) NOT NULL,
+City Char(35) NOT NULL,
+[State] Char(2) NOT NULL,
+ZIP Char(10) NOT NULL,
+OwnerID Int NOT NULL,
+DateAdded datetime NULL default GetDate()
+CONSTRAINT OWNED_PROPERTY_PK PRIMARY KEY(PropertyID),
+CONSTRAINT PROPERTY_OWNER_FK FOREIGN KEY (OwnerID)
+REFERENCES OWNER(OwnerID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT PROPERTY_TYPE_CHECK CHECK
+(PropertyType IN ('Office','Apartments',
+'Private Residence'))
+);
+*/
+
+Create TABLE EMPLOYEE
+(
+EmployeeID Int NOT NULL IDENTITY(1,1),
+FirstName varchar(60) NOT NULL,
+LastName varchar(60) NOT NULL,
+Email varchar(100) NOT NULL,
+CellPhone varchar(14) NOT NULL,
+Title varchar(60) NOT NULL,
+ExperienceLevel varchar(1) NOT NULL,
+DateofHire Datetime NOT NULL default GetDate(),
+CONSTRAINT EMPLOYEE_PK PRIMARY KEY(EmployeeID)
+);
+
+Create TABLE GG_SERVICE
+(
+ServiceID Int NOT NULL IDENTITY(1,1),
+ServiceDescription varchar(250),
+CostPerHour money NOT NULL,
+StartDate datetime NOT NULL default GetDate(),
+Status varchar(10) NOT NULL,
+CONSTRAINT GG_SERVICE_PK PRIMARY KEY(ServiceID)
+);
+
+ALTER TABLE GG_APPOINTMENTS2
+ADD FOREIGN KEY (PropertyID) REFERENCES OWNED_PROPERTY(PropertyID); 
+
+Create TABLE GG_APPOINTMENTS2
+(
+AppointmentsID Int NOT NULL IDENTITY(1,1),
+Appt_Date datetime NOT NULL,
+CONSTRAINT GG_Appointments PRIMARY KEY(AppointmentsID),
+CONSTRAINT PROPERTY_OWNERUNIQUE_FK FOREIGN KEY (AppointmentsID)
+   REFERENCES OWNED_PROPERTY(PropertyID)
+   ON DELETE NO ACTION
+   ON UPDATE NO ACTION,
+);
+
+
+
+/*
+CONSTRAINT
+OWNER_PROPERTY_GG_FK FOREIGN KEY(PropertyID)
+REFERENCES OWNED_PROPERTY(PropertyID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+*/
+
+
+
+Create TABLE PAYMENT
+(PaymentID Int NOT NULL IDENTITY(1,1),
+PaymentType varchar(3) NOT NULL,
+AccountNum varchar(25) NULL,
+RountingNum varchar(25) NULL,
+CreditCardNum varchar(20) NULL,
+CCExpDate date NULL,
+CCSecurityNum varchar(10) NULL,
+[Status] varchar(10) NOT NULL,
+DateAdded datetime NULL default getDate(),
+CONSTRAINT PAYMENT_PK PRIMARY KEY(PaymentID)
+);
+
+CREATE TABLE PROPERTY_SERVICE
+(
+PropertyServiceID Int NOT NULL IDENTITY(1,1),
+HoursWorked float(24) NOT NULL,
+DateofService datetime NOT NULL
+CONSTRAINT PROPERTY_SERVICE_PK PRIMARY KEY(PropertyServiceID),
+CONSTRAINT EMPLOYEE_FK1 FOREIGN KEY(PropertyServiceID)
+REFERENCES EMPLOYEE(EmployeeID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT OWNER_PROEPRTY_FK1 FOREIGN KEY(PropertyServiceID)
+REFERENCES OWNED_PROPERTY(PropertyID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT GG_Appointments_FK1 FOREIGN KEY(PropertyServiceID)
+REFERENCES GG_APPOINTMENTS2(AppointmentsID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+);
