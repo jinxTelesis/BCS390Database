@@ -1,0 +1,98 @@
+INSERT INTO OWNER
+VALUES
+('Mary','Jones','Mary.Jones@somewhere.com','Individual','2016-04-18'),
+('DT','Enterprises','DTE@dte.com','Corporation','2019-04-17'),
+('Sam','Douglas','Sam.Douglas@somewhere.com','Individual','2013-04-23'),
+('UNY','Enterprises','UNYE@unye.com','Corporation','2017-03-18'),
+('Doug','Samuels','Doug.Samuels@somewhere.com','Individual','2018-05-19');
+
+INSERT INTO EMPLOYEE
+VALUES
+('Sam','Smith','bedtalks@gmail.com','206-254-1234','red shirt','M','2016-03-17'),
+('John','Evanston','flagrocker@gmail.com','206-254-2345','manager','S','2014-01-15'),
+('Dale','Murray','fatfags@gmail.com','206-254-3456','red shirt','J','2015-02-16'),
+('Jerry','Murphy','bestrate@gmail.com','585-545-8765','trimmer','M','2015-02-16'),
+('Joan','Fontaine','rosefloss@gmail.com','206-254-4567','trimmer','S','2017-02-17');
+
+INSERT INTO PAYMENT
+VALUES
+('1','1213-1211-1211-3131','9101-1213-1231-8732',NULL,NULL,NULL,'paid','2016-01-02'),
+('2',NULL,NULL,'1921-9102-1213-9812','2017-02-01','301','paid','2016-01-03'),
+('1','8781-1231-2931-9878','1281-2312-2177-8712',NULL,NULL,NULL,'paid','2016-01-04'),
+('1','2812-1281-2911-9661','1267-4312-8721-9811',NULL,NULL,NULL,'paid','2016-02-11'),
+('2',NULL,NULL,'7813-2118-9871-1289','2018-02-01','118','paid','2016-02-12');
+
+INSERT INTO OWNER_PROPERTY
+VALUES
+('Eastlake Building','Office','123',NULL,'Eastlake','Seattle','WA','98119',2,1,'2017-10-01'),
+('Elm St Apts','Apartments','4',NULL,'East Elm','Lynwood','WA','98223',3,1,'2017-11-02'),
+('Jefferson Hill','Office','42',NULL,'West 7th St','Bellevue','WA','98007',2,1,'2017-12-03'),
+('Lake View Apts','Apartments','1265',NULL,'32nd Avenue','Redmond','WA','98052',3,1,'2017-08-11'),
+('Kodak Heights Apts','Apartments','65',NULL,'32nd Avenue','Redmond','WA','98052',4,1,'2018-01-01'),
+('Jones House','Private Residence','1456',NULL,'48th St','Bellevue','EA','98007',1,1,'2018-02-01'),
+('Douglas House','Private Residence','1567',NULL,'51st St','Bellevue','WA','98007',3,1,'2018-03-01'),
+('Samuels House','Private Residence','567',NULL,'151st St','Redmond','WA','98052',5,1,'2018-04-01');
+
+INSERT INTO GG_SERVICE
+VALUES
+('Mow Lawn','25.00','2016-02-01','complete'),
+('Plant Annuals','25.00','2016-02-02','complete'),
+('Weed Garden','30.00','2016-02-03','complete'),
+('Trim Hedge','45.00','2016-02-04','complete'),
+('Prune Small Tree','60.00','2016-02-05','complete'),
+('Trim Medium Tree','100.00','2016-03-05','complete'),
+('Trim Large Tree','125.00','2016-04-01','complete'
+);
+
+INSERT INTO GG_APPOINTMENTS2
+VALUES
+('2017-08-01',1),
+('2017-07-02',2),
+('2017-09-03',3),
+('2017-10-04',4),
+('2017-11-17',5);
+
+INSERT INTO PROPERTY_SERVICE
+VALUES
+(1,2,1,1,4.50,'2017-05-05'),
+(3,2,3,2,4.50,'2017-05-08'),
+(2,1,2,5,2.75,'2017-05-08'),
+(6,1,3,4,2.50,'2017-05-10'),
+(5,4,4,3,7.50,'2017-05-12'),
+(8,1,3,5,2.75,'2017-05-19'),
+(4,4,1,5,1.00,'2017-05-19'),
+(7,1,4,5,2.50,'2017-05-21'),
+(6,3,3,4,2.50,'2017-06-08'),
+(5,4,4,3,10.50,'2017-06-08'),
+(8,3,5,1,2.75,'2017-06-12'),
+(4,4,1,3,5.00,'2017-06-15'),
+(7,3,2,4,4.00,'2017-06-19');
+
+/* reminder on table 
+
+CREATE TABLE PROPERTY_SERVICE
+(
+PropertyServiceID Int NOT NULL IDENTITY(1,1),
+PropertyID Int NOT NULL,
+ServiceID Int NOT NULL,
+EmployeeID Int NOT NULL,
+AppointmentID Int NOT NULL,
+HoursWorked float(24) NOT NULL,
+DateofService datetime NOT NULL
+CONSTRAINT PROPERTY_SERVICE_PK PRIMARY KEY(PropertyServiceID),
+CONSTRAINT EMPLOYEE_FK1 FOREIGN KEY(EmployeeID)
+REFERENCES EMPLOYEE(EmployeeID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT OWNER_PROEPRTY_FK1 FOREIGN KEY(PropertyID)
+REFERENCES OWNER_PROPERTY(PropertyID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT GG_Appointments_FK1 FOREIGN KEY(AppointmentID)
+REFERENCES GG_APPOINTMENTS2(AppointmentsID)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT GG_SERVICE_FK1 FOREIGN KEY(ServiceID)
+REFERENCES GG_SERVICE(ServiceID)
+);
+*/
