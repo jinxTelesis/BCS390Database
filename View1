@@ -1,0 +1,18 @@
+CREATE VIEW vPropertyServices
+AS 
+SELECT ggs.ServiceID, ggs.ServiceDescription,ggs.CostPerHour,e.FirstName + e.LastName as FULLNAME, ps.HoursWorked, (ggs.CostPerHour * ps.HoursWorked) as TotalCost, op.PropertyName, op.PaymentID
+FROM dbo.OWNER_PROPERTY as op
+JOIN dbo.PROPERTY_SERVICE as ps
+ON op.PropertyID = ps.PropertyID
+JOIN dbo.EMPLOYEE as e 
+ON ps.EmployeeID = e.EmployeeID
+JOIN dbo.GG_SERVICE as ggs
+ON ps.ServiceID = ggs.ServiceID;
+
+go
+
+CREATE VIEW vPropertyServicesSummary
+AS 
+
+SELECT FULLNAME, PropertyName, ServiceDescription,ServiceID 
+FROM vPropertyServices
