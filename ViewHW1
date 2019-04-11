@@ -1,0 +1,28 @@
+CREATE VIEW vPaidOnlyInvoices 
+AS
+SELECT op.PropertyName as Prop_Name, ggs.CostPerHour * pps.HoursWorked as TotalInvoiceAmount, ggs.ServiceDescription as SD
+FROM GG_SERVICE as ggs 
+JOIN PROPERTY_SERVICE as pps
+ON ggs.ServiceID = pps.ServiceID
+JOIN OWNER_PROPERTY as op
+ON pps.PropertyID = op.PropertyID
+
+SELECT Prop_Name, SUM(TotalInvoiceAmount) as GRANDTOTAL 
+FROM vPaidOnlyInvoices 
+GROUP BY Prop_Name WITH CUBE;
+
+ALTER TABLE GG_INVOICE
+ADD PaidFlag varchar(10);
+
+CREATE VIEW NEWVIEW AS 
+SELECT ggs.ServiceDescription as [Service Desc],Count(pps.ServiceID) as ServiceCount,(ggs.CostPerHour * pps.HoursWorked) as totalServiceCost
+FROM GG_SERVICE as ggs 
+JOIN PROPERTY_SERVICE as pps
+ON ggs.ServiceID = pps.ServiceID
+JOIN OWNER_PROPERTY as op
+ON pps.PropertyID = op.PropertyID
+GROUP BY ggs.ServiceDescription, ggs.CostPerHour, pps.HoursWorked
+
+
+SELECT CONVERT(decimal(10,2),totalServiceCost)
+FROM NEWVIEW;
