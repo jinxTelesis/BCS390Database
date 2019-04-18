@@ -136,8 +136,8 @@ INSERT INTO MEDIUM_EQUIP_MED VALUES
 ('Aisys Carestation','AAB',GETDATE() -1000,'Great',100,'A mobile care station',1000,3,3),
 ('ecoFlow','CCC',GETDATE() -700,'Great',100,'Breathing aid',5000,3,1),
 ('Aespire','CDC',GETDATE() -500,'USED',1700,'Monitoring station',5000,3,8),
-('Aestiva','CDd',GETDATE() -100,'USED',17000,'Advanced Monitoring staion',5000,9,1),
-('Aestiva','CDd',GETDATE() -100,'USED',17000,'Advanced Monitoring staion',5000,9,1),
+('Aestiva','CDD',GETDATE() -100,'USED',17000,'Advanced Monitoring staion',5000,9,1),
+('Aestiva','CDD',GETDATE() -100,'USED',17000,'Advanced Monitoring staion',5000,9,1),
 ('Tomography Station','RRR',GETDATE() -1200,'USED',100,'State of the art Tomography station',3000,1,1),
 ('Dianostic ECG','RRR',GETDATE() -1700,'USED',80,'old ECG machine',1900,1,2),
 ('1.5 T','DGF', GETDATE() -1000,'USED',150,'smaller MRI machine',200000,3,4),
@@ -153,7 +153,6 @@ sEOwnershipDate Date,
 sEAverageUserPerYear int,
 sDescription varchar(250),
 sCostPer money,
-sCurrentLoc varchar(10),
 sCID int, --fk
 bID int -- fk
 CONSTRAINT sEID_PK PRIMARY KEY(sEID),
@@ -166,6 +165,22 @@ REFERENCES SERVICE_CONTRACT(sCID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION 
 );
+
+INSERT INTO SMALL_EQUIP_MED VALUES
+('Bath safety','CDD',GETDATE() -2000,20,'safety chair for bathing aids',10,1,1),
+('Bed Positioniner','DDD',GETDATE() - 1500,10,'triangle thing to help people sleep',50,7,3),
+('Commodes','EAE',GETDATE()-1500,15,'raised mobile toilet',20,8,8),
+('hip chair','EAE',GETDATE()-700,20,'a chair that angels the hit to mitigate paint',15,9,9),
+('Patinetn Scales','EFE',GETDATE() -1000,100,'accurate scale',200,1,1),
+('Pillow','AAA',GETDATE()-50,100,'nice and comfy',0,3,3),
+('Walker','ABA',GETDATE()-500,50,'basic walker',10,4,4),
+('Wheelchair','CAC',GETDATE()-1000,100,'basic wheelchair',50,1,1),
+('Safety straps','AAA',GETDATE()-700,100,'Surgical straps',0,3,3),
+('Radioligcal vest','BCA',GETDATE()-5000,50,'lead vest',0,4,4),
+('clamp','RFA',GETDATE()-100,50,'keeps people still during surgery',10,5,5),
+('Mobile cabinite','BAB',GETDATE() -2000,50,'store you medical supplies',50,7,7),
+('Iv stand','BAB',GETDATE()-5000,10,'IV stand keeps fluids seperated',50,8,8);
+
 
 CREATE TABLE COMPUTERS
 (
@@ -192,6 +207,20 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 );
 
+INSERT INTO COMPUTERS VALUES
+('P',1000,1,2,3,4,5,'AAA',GETDATE()+10,3,3),
+('P',1700,1,2,3,4,5,'BAD',GETDATE()-100,1,1),
+('P',1600,1,2,3,4,5,'BAD',GETDATE()-170,1,2),
+('P',1200,1,2,3,4,5,'DDD',GETDATE()-180,1,2),
+('P',1200,1,2,3,4,5,'RDA',GETDATE()-1000,4,4),
+('P',1500,1,2,3,4,5,'ARB',GETDATE()-200,6,7),
+('P',1700,1,7,3,4,5,'BGA',GETDATE()-900,2,1),
+('P',1800,1,7,3,4,5,'AGA',GETDATE()-1000,7,9),
+('P',1000,1,2,3,4,5,'AGA',GETDATE()-2000,9,9),
+('S',8000,1,2,3,4,5,'AGG',GETDATE()-1500,2,1),
+('S',40000,7,6,3,4,2,'GAA',GETDATE()-1200,1,8),
+('S',10000,7,6,3,4,2,'GAA',GETDATE()-700,8,8);
+
 
 CREATE TABLE OFFICE_EQUIPMENT
 (
@@ -201,7 +230,6 @@ oELoc varchar(10),
 oEOwnershipDate Date,
 oECondition varchar(10),
 oEDescription varchar(250),
-oCurrentLoc varchar(10),
 bID int -- fk
 CONSTRAINT oEID PRIMARY KEY(oEID),
 CONSTRAINT bID_FK_OE FOREIGN KEY(bID) 
@@ -209,6 +237,23 @@ REFERENCES BUILDINGS(bID)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION,
 );
+
+INSERT INTO OFFICE_EQUIPMENT VALUES
+('Charging station','AAA',GETDATE() - 1700,'USED','Laptop charging station',3),
+('Doudble monitor desk','AAB',GETDATE()-1000,'USED','duel desktop station',4),
+('Calculator','ACD',GETDATE()-700,'NEW','who uses this in 2019',1),
+('Screen cleaning wipes','ACD',GETDATE()-800,'NEW','cleans computer monitors',1),
+('stickies','ACD',GETDATE()-900,'NEW','post stuff',2),
+('Desk chair','ACD',GETDATE()-100,'NEW','chair with wheels',3),
+('pens','ACE',GETDATE()-200,'NEW','fine tip',3),
+('pencils','ACE',GETDATE()-300,'NEW','no 2',7),
+('White board markers','ACG',GETDATE()-400,'NEW','in your fav colors',8),
+('Perm markers','GCD',GETDATE()-500,'NEW','Do not use these on the whiteboard',9),
+('Projector','BCD',GETDATE()-600,'NEW','look like a boss',1),
+('erasers','RCD',GETDATE()-700,'NEW','white board erasers',2),
+('white board','DCD',GETDATE()-800,'NEW','white board on wheels',2);
+
+
 
 CREATE TABLE OFFICE_SUPPLIES
 (
