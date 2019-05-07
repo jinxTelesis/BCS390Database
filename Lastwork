@@ -1,0 +1,41 @@
+CREATE PROC spInsetMedicalWaste
+@mWID int = NULL,
+@mWType varchar(10) = NULL,
+@bID int = NULL,
+@mWLimit int = NULL,
+@mWCurrent int = NULL,
+@mwRegularRemoval int = NULL
+AS
+
+if EXISTS(SELECT * FROM dbo.MedicalWaste WHERE mWID = @mWID)
+	BEGIN
+		Raiserror('That value already exists',16,1)
+	END
+if @mWType is NULL
+	BEGIN
+		Raiserror('mWType needs to be supplied',16, 1)
+	END
+if @mWLimit is NULL
+	BEGIN
+		Raiserror('mWLimit needs to be supplied ie medical waste limit',16,1)
+	END
+if @mWCurrent is NULL
+	BEGIN
+		SET @mWCurrent = 30;
+	PRINT 'Medical waste regular removal should be defined, record was processed anyway'
+	END
+if @mwRegularRemoval is NULL
+	BEGIN
+		Raiserror('mw regular removal needs to be set',16,1)
+	END
+if @bId is NULL
+	BEGIN
+		Raiserror('building location needs to be supplied',16,1)
+	END
+
+INSERT dbo.MedicalWaste
+VALUES(@mWType,@mWLimit,@mWCurrent,@mwRegularRemoval,@bID)
+
+
+EXEC spInsetMedicalWaste
+	15,'bio9',1,100,50,28;
