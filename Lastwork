@@ -295,14 +295,18 @@ if @bID is NULL
 	BEGIN
 		Raiserror('Building id is required ',16, 1)
 	END
-UPDATE dbo.MEDIUM_EQUIP_MED
-SET mEName = @mEName, mELoc = @mELoc, mEOwnershipDate = @mEOwnershipDate, mECondition = @mECondtion,
-mEAverageUsePerYear = @mEAverageUsePerYear, mCostPerYear = @mCostPerYear, sCID = @sCID, bID = @bID
+	
+BEGIN
+	UPDATE dbo.MEDIUM_EQUIP_MED
+	SET mEName = @mEName, mELoc = @mELoc, mEOwnershipDate = @mEOwnershipDate, mECondition = @mECondtion,
+	mEAverageUsePerYear = @mEAverageUsePerYear, mCostPerYear = @mCostPerYear, sCID = @sCID, bID = @bID
+	WHERE sEID = @sEID
+	
 
 EXEC spUPDATE_EQUIP_MED
 	7,'ECO flow','AAA','2019-10-10','GREAT',100,'blah blah blah',100.0,1,1
 	
-	CREATE PROC spUPDATE_EQUIP_SMALL
+ALTER PROC spUPDATE_EQUIP_SMALL
 @sEID int = NULL,
 @sEName varchar(50) = NULL,
 @sELoc varchar(10) = NULL,
@@ -314,7 +318,7 @@ EXEC spUPDATE_EQUIP_MED
 @bID int = NULL
 
 AS
-if EXISTS(SELECT * FROM dbo.SMALL_EQUIP_MED WHERE sEID = @sEID)
+if NOT EXISTS(SELECT * FROM dbo.SMALL_EQUIP_MED WHERE sEID = @sEID)
 	BEGIN
 		Raiserror('That value does not exist cant update!',16,1)
 	END
@@ -351,9 +355,12 @@ if @bID is NULL
 		Raiserror('building is a required field',16, 1)
 	END
 
-UPDATE dbo.SMALL_EQUIP_MED
-SET sEName = @sEName, sELoc = @sELoc, sEOwnershipDate = @sEOwnershipDate,
-sEAverageUserPerYear = @sEAverageUsePerYear,sDescription = @sDescription,sCostPer = @sCostPerYear, sCID = @sCID, bID = @bID
+BEGIN
+	UPDATE dbo.SMALL_EQUIP_MED
+	SET sEName = @sEName, sELoc = @sELoc, sEOwnershipDate = @sEOwnershipDate,
+	sEAverageUserPerYear = @sEAverageUsePerYear,sDescription = @sDescription,sCostPer = @sCostPerYear, sCID = @sCID, bID = @bID
+	WHERE sEID = @sEID
+END
 
 
 EXEC spUPDATE_EQUIP_SMALL
