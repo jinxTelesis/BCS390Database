@@ -7,3 +7,12 @@ ON sc.sCID = p.sProviderID
 
 SELECT * FROM ComputerINFO
 WHERE computerID = 2
+
+CREATE VIEW OfficeSuppplyINFO as
+SELECT os.oSCost, os.oSCurrentSupplier, os.oSHistoricUse, os.oSName, srl.sRestockTime
+FROM dbo.OFFICE_SUPPLIES as os
+JOIN dbo.SUPPLY_REORDER_LEVELS as srl
+ON os.oSReorderID = srl.sReorderID
+
+SELECT * FROM OfficeSuppplyINFO
+WHERE oSCost < 100
