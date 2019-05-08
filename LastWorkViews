@@ -25,3 +25,12 @@ ON l.sCID = sc.sCID
 
 SELECT * FROM LARGE_SITE_EQUID_INFO
 WHERE LargeEID = 1
+
+CREATE VIEW Medium_SITE_EQUID_INFO as
+SELECT sc.sContractCostPY,sc.sCProvider,sc.sCRating,sc.sCtimeToHonor,m.mEID,m.mELoc,m.mEName,m.mDescription
+FROM dbo.MEDIUM_EQUIP_MED as m
+JOIN dbo.SERVICE_CONTRACT as sc
+ON m.sCID = sc.sCID
+
+SELECT * FROM Medium_SITE_EQUID_INFO
+WHERE mEID = 1
