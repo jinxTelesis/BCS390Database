@@ -170,5 +170,77 @@ VALUES(@sProviderName,@sProviderDescription,@sProviderPrimaryContact,@sProviderN
 INSERT dbo.OFFICE_SUPPLIES
 VALUES(@oSName,@oSHistoricUse,@oSCost,@oSCurrentSupplier,@oSnumber,@oSReorderID,@bID)
 
+
+CREATE PROC spINSERT_COMPUTER
+@ComputerID int = NULL,
+@type varchar(2) = NULL,
+@cost money = NULL,
+@softwareID1 int = NULL,
+@softwareID2 int = NULL,
+@softwareID3 int = NULL,
+@softwareID4 int = NULL,
+@softwareID5 int = NULL,
+@cCurrentLoc varchar(10) = NULL,
+@cPurchaseDate Date = NULL,
+@sCID int = NULL,
+@bID int = NULL
+
+AS
+
+if EXISTS(SELECT * FROM dbo.COMPUTERS WHERE @ComputerID = @ComputerID)
+	BEGIN
+		Raiserror('That computer already exists',16,1)
+	END
+if @type is NULL
+	BEGIN
+		Raiserror('type is required',16, 1)
+	END
+if @cost is NULL
+	BEGIN
+		Raiserror('cost is required',16, 1)
+	END
+if @softwareID1 is NULL
+	BEGIN
+		Raiserror('softwareID1 is required',16, 1)
+	END
+if @softwareID2 is NULL
+	BEGIN
+		SET @softwareID2 = 0;
+	END
+if @softwareID3 is NULL
+	BEGIN
+		SET @softwareID3 = 0;
+	END
+if @softwareID4 is NULL
+	BEGIN
+		SET @softwareID4 = 0;
+	END
+if @softwareID5 is NULL
+	BEGIN
+		SET @softwareID5 = 0;
+	END
+if @cCurrentLoc is NULL
+	BEGIN
+		Raiserror('Current Location is required',16, 1)
+	END
+if @cPurchaseDate is NULL
+	BEGIN
+		Raiserror('Purchase date is required',16, 1)
+	END
+if @sCID is NULL
+	BEGIN
+		Raiserror('sCID is required',16, 1)
+	END
+if @bID is NULL
+	BEGIN
+		Raiserror('Building ID is required',16, 1)
+	END
+
+INSERT INTO dbo.COMPUTERS
+VALUES(@type,@cost,@softwareID1,@softwareID2,@softwareID3,@softwareID4,@softwareID5,@cCurrentLoc,@cPurchaseDate,@sCID,@bID)
+
+EXEC spINSERT_COMPUTER
+	's',100.7,1,2,3,4,1,'AAA','2019-10-10',1,1
+
 EXEC spINSERT_OFFICE_SUPPLIES_N_ADD_PROVIDER
 	13,'Auto Stapler',50,50.0,'Max House',13,1,3,13,'Max House','Great Care','Timmy timmy','128-111-1121','AA'
