@@ -43,3 +43,12 @@ ON s.sCID = sc.sCID
 
 SELECT * FROM SMALL_EQUIP_MED
 WHERE sEID = 1
+
+ALTER VIEW RADIOLOGCIAL_INFO as
+SELECT r.rLCostPerUnit,r.rLDispoal,r.rLID,r.rLLisence,r.rLName,b.bName,b.bPrimaryAdmin,b.bStreet,b.bCity, b.bID
+FROM dbo.RadioLogical as r
+join dbo.BUILDINGS as b
+on r.bID = b.bID
+
+SELECT * FROM RADIOLOGCIAL_INFO
+WHERE bID = 1
