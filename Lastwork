@@ -187,7 +187,7 @@ CREATE PROC spINSERT_COMPUTER
 
 AS
 
-if EXISTS(SELECT * FROM dbo.COMPUTERS WHERE @ComputerID = @ComputerID)
+if EXISTS(SELECT * FROM dbo.COMPUTERS WHERE computerID = @ComputerID)
 	BEGIN
 		Raiserror('That computer already exists',16,1)
 	END
@@ -237,10 +237,8 @@ if @bID is NULL
 	END
 
 INSERT INTO dbo.COMPUTERS
-VALUES(@type,@cost,@softwareID1,@softwareID2,@softwareID3,@softwareID4,@softwareID5,@cCurrentLoc,@cPurchaseDate,@sCID,@bID)
+VALUES(@type,@cost,@softwareID1,@softwareID2,@softwareID3,@softwareID4,@softwareID5,@cCurrentLoc,GETDATE(),@sCID,@bID)
 
 EXEC spINSERT_COMPUTER
-	's',100.7,1,2,3,4,1,'AAA','2019-10-10',1,1
+	19,'s',100.7,1,2,3,4,1,'AAA','2019-10-10',1,1
 
-EXEC spINSERT_OFFICE_SUPPLIES_N_ADD_PROVIDER
-	13,'Auto Stapler',50,50.0,'Max House',13,1,3,13,'Max House','Great Care','Timmy timmy','128-111-1121','AA'
