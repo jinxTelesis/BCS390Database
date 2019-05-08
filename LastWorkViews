@@ -1,0 +1,9 @@
+CREATE VIEW ComputerINFO AS
+SELECT computerID, [type],cost,softwareID2,cCurrentLoc,bID,sContractCostPY
+FROM dbo.COMPUTERS as c JOIN
+dbo.SERVICE_CONTRACT as sc ON c.sCID = sc.sCID
+JOIN dbo.SERVICE_PROVIDERS as p
+ON sc.sCID = p.sProviderID
+
+SELECT * FROM ComputerINFO
+WHERE computerID = 2
