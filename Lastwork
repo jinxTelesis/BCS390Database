@@ -88,3 +88,87 @@ VALUES(@oSName,@oSHistoricUse,@oSCost,@oSCurrentSupplier,@oSnumber,@oSReorderID,
 
 EXEC spINSERT_OFFICE_SUPPLIES
 	12,'markers',70,2.00,'CDW',1,1,1
+	
+CREATE PROC spINSERT_OFFICE_SUPPLIES_N_ADD_PROVIDER
+@oSID INT = NULL,
+@oSName varchar(50) = NULL,
+@oSHistoricUse int = NULL,
+@oSCost money = NULL,
+@oSCurrentSupplier varchar(50) = NULL,
+@oSnumber int = NULL,
+@oSReorderID int = NULL,
+@bID int = NULL,
+@sProviderID int = NULL,
+@sProviderName varchar(50) = NULL,
+@sProviderDescription varchar(250) = NULL,
+@sProviderPrimaryContact varchar(50) = NULL,
+@sProviderNumber varchar(15),
+@sProviderRating varchar(2)
+
+AS
+if NOT EXISTS(SELECT * FROM dbo.SERVICE_PROVIDERS WHERE sProviderID = @sProviderID)
+	BEGIN
+		if @sProviderName is NULL
+		BEGIN
+			Raiserror('Providers Name is required',16, 1)
+		END
+		if @sProviderDescription is NULL
+		BEGIN
+			Raiserror('Providers description is required',16, 1)
+		END
+		if @sProviderPrimaryContact is NULL
+		BEGIN
+			Raiserror('Providers primary contact is required',16, 1)
+		END
+		if @sProviderNumber is NULL
+		BEGIN
+			Raiserror('Providers Number is required',16, 1)
+		END
+		if @sProviderRating is NULL
+		BEGIN
+			Raiserror('Providers rating is required',16, 1)
+		END
+	END
+		
+
+if EXISTS(SELECT * FROM dbo.OFFICE_SUPPLIES WHERE oSID = @oSID)
+	BEGIN
+		Raiserror('That value already exists',16,1)
+	END
+if @oSName is NULL
+	BEGIN
+		Raiserror('oSNAME is required',16, 1)
+	END
+if @oSHistoricUse is NULL
+	BEGIN
+		Raiserror('Historic Use is required',16, 1)
+	END
+if @osCost is NULL
+	BEGIN
+		Raiserror('Cost value is required',16, 1)
+	END
+if @oSCurrentSupplier is NULL
+	BEGIN
+		Raiserror('Current Supplier is required',16, 1)
+	END
+if @oSnumber is NULL
+	BEGIN
+		Raiserror(' Suppliers number is required',16, 1)
+	END
+if @oSReorderID is NULL
+	BEGIN
+		Raiserror(' Reorder level is required',16, 1)
+	END
+if @bID is NULL
+	BEGIN
+		Raiserror('Building ID required to know where office supplier are located',16, 1)
+	END
+
+INSERT dbo.SERVICE_PROVIDERS
+VALUES(@sProviderName,@sProviderDescription,@sProviderPrimaryContact,@sProviderNumber,@sProviderRating)
+
+INSERT dbo.OFFICE_SUPPLIES
+VALUES(@oSName,@oSHistoricUse,@oSCost,@oSCurrentSupplier,@oSnumber,@oSReorderID,@bID)
+
+EXEC spINSERT_OFFICE_SUPPLIES_N_ADD_PROVIDER
+	13,'Auto Stapler',50,50.0,'Max House',13,1,3,13,'Max House','Great Care','Timmy timmy','128-111-1121','AA'
