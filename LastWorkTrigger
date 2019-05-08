@@ -34,3 +34,292 @@ SPID_1 int,
 TimeStamp VARCHAR(250),
 DatabaseName VARCHAR(250)
 )
+
+-- end trigger 1
+
+CREATE TRIGGER LOG_TRIGGER_MEDIUM_EQUIP
+ON dbo.MEDIUM_EQUIP_MED
+AFTER INSERT
+AS
+ 
+DECLARE @Table TABLE(
+        SPID INT,
+        Status VARCHAR(MAX),
+        LOGIN VARCHAR(MAX),
+        HostName VARCHAR(MAX),
+        BlkBy VARCHAR(MAX),
+        DBName VARCHAR(MAX),
+        Command VARCHAR(MAX),
+        CPUTime INT,
+        DiskIO INT,
+        LastBatch VARCHAR(MAX),
+        ProgramName VARCHAR(MAX),
+        SPID_1 INT,
+        REQUESTID INT
+)
+
+INSERT INTO @Table EXEC sp_who2
+
+INSERT INTO USERLOGS
+SELECT  [LOGIN], HostName,DBName,LastBatch,SPID_1,GETDATE(),'med_equip_med_insert_log'
+FROM    @Table
+
+CREATE TABLE USERLOGS(
+LoginName VARCHAR(250),
+HostName VARCHAR(250),
+DBName VARCHAR(250),
+LastBatch VARCHAR(250),
+SPID_1 int,
+TimeStamp VARCHAR(250),
+DatabaseName VARCHAR(250)
+)
+
+-- end trigger 2
+
+CREATE TRIGGER LOG_TRIGGER_COMPUTERS
+ON dbo.COMPUTERS
+AFTER INSERT
+AS
+ 
+DECLARE @Table TABLE(
+        SPID INT,
+        Status VARCHAR(MAX),
+        LOGIN VARCHAR(MAX),
+        HostName VARCHAR(MAX),
+        BlkBy VARCHAR(MAX),
+        DBName VARCHAR(MAX),
+        Command VARCHAR(MAX),
+        CPUTime INT,
+        DiskIO INT,
+        LastBatch VARCHAR(MAX),
+        ProgramName VARCHAR(MAX),
+        SPID_1 INT,
+        REQUESTID INT
+)
+
+INSERT INTO @Table EXEC sp_who2
+
+INSERT INTO USERLOGS
+SELECT  [LOGIN], HostName,DBName,LastBatch,SPID_1,GETDATE(),'Computer Insert'
+FROM    @Table
+
+-- end trigger 3
+
+CREATE TRIGGER LOG_TRIGGER_LARGE_SITE_EQUID_MED
+ON dbo.LARGE_SITE_EQUID_MED
+AFTER INSERT
+AS
+ 
+DECLARE @Table TABLE(
+        SPID INT,
+        Status VARCHAR(MAX),
+        LOGIN VARCHAR(MAX),
+        HostName VARCHAR(MAX),
+        BlkBy VARCHAR(MAX),
+        DBName VARCHAR(MAX),
+        Command VARCHAR(MAX),
+        CPUTime INT,
+        DiskIO INT,
+        LastBatch VARCHAR(MAX),
+        ProgramName VARCHAR(MAX),
+        SPID_1 INT,
+        REQUESTID INT
+)
+
+INSERT INTO @Table EXEC sp_who2
+
+INSERT INTO USERLOGS
+SELECT  [LOGIN], HostName,DBName,LastBatch,SPID_1,GETDATE(),'LARGE EQUIPMENT Insert'
+FROM    @Table
+
+-- end trigger 4
+
+CREATE TRIGGER LOG_TRIGGER_Medical_Waste
+ON dbo.MedicalWaste
+AFTER INSERT
+AS
+ 
+DECLARE @Table TABLE(
+        SPID INT,
+        Status VARCHAR(MAX),
+        LOGIN VARCHAR(MAX),
+        HostName VARCHAR(MAX),
+        BlkBy VARCHAR(MAX),
+        DBName VARCHAR(MAX),
+        Command VARCHAR(MAX),
+        CPUTime INT,
+        DiskIO INT,
+        LastBatch VARCHAR(MAX),
+        ProgramName VARCHAR(MAX),
+        SPID_1 INT,
+        REQUESTID INT
+)
+
+INSERT INTO @Table EXEC sp_who2
+
+INSERT INTO USERLOGS
+SELECT  [LOGIN], HostName,DBName,LastBatch,SPID_1,GETDATE(),'Medical waste Insert'
+FROM    @Table
+
+-- end trigger 5
+
+CREATE TRIGGER LOG_TRIGGER_OFFICE_EQUIPMENT
+ON dbo.OFFICE_EQUIPMENT
+AFTER INSERT
+AS
+ 
+DECLARE @Table TABLE(
+        SPID INT,
+        Status VARCHAR(MAX),
+        LOGIN VARCHAR(MAX),
+        HostName VARCHAR(MAX),
+        BlkBy VARCHAR(MAX),
+        DBName VARCHAR(MAX),
+        Command VARCHAR(MAX),
+        CPUTime INT,
+        DiskIO INT,
+        LastBatch VARCHAR(MAX),
+        ProgramName VARCHAR(MAX),
+        SPID_1 INT,
+        REQUESTID INT
+)
+
+INSERT INTO @Table EXEC sp_who2
+
+INSERT INTO USERLOGS
+SELECT  [LOGIN], HostName,DBName,LastBatch,SPID_1,GETDATE(),'Office equipement Insert'
+FROM    @Table
+
+-- end trigger 6
+
+CREATE TRIGGER LOG_TRIGGER_OFFICE_SUPPLIES
+ON dbo.OFFICE_SUPPLIES
+AFTER INSERT
+AS
+ 
+DECLARE @Table TABLE(
+        SPID INT,
+        Status VARCHAR(MAX),
+        LOGIN VARCHAR(MAX),
+        HostName VARCHAR(MAX),
+        BlkBy VARCHAR(MAX),
+        DBName VARCHAR(MAX),
+        Command VARCHAR(MAX),
+        CPUTime INT,
+        DiskIO INT,
+        LastBatch VARCHAR(MAX),
+        ProgramName VARCHAR(MAX),
+        SPID_1 INT,
+        REQUESTID INT
+)
+
+INSERT INTO @Table EXEC sp_who2
+
+INSERT INTO USERLOGS
+SELECT  [LOGIN], HostName,DBName,LastBatch,SPID_1,GETDATE(),'Office suppiles Insert'
+FROM    @Table
+
+-- end trigger 7
+
+CREATE TRIGGER LOG_TRIGGER_SERVICE_CONTRACT
+ON dbo.SERVICE_CONTRACT
+AFTER INSERT
+AS
+ 
+DECLARE @Table TABLE(
+        SPID INT,
+        Status VARCHAR(MAX),
+        LOGIN VARCHAR(MAX),
+        HostName VARCHAR(MAX),
+        BlkBy VARCHAR(MAX),
+        DBName VARCHAR(MAX),
+        Command VARCHAR(MAX),
+        CPUTime INT,
+        DiskIO INT,
+        LastBatch VARCHAR(MAX),
+        ProgramName VARCHAR(MAX),
+        SPID_1 INT,
+        REQUESTID INT
+)
+
+INSERT INTO @Table EXEC sp_who2
+
+INSERT INTO USERLOGS
+SELECT  [LOGIN], HostName,DBName,LastBatch,SPID_1,GETDATE(),'Office contract Insert'
+FROM    @Table
+
+-- end trigger 8
+CREATE TRIGGER LOG_TRIGGER_MedicalWaste
+ON dbo.MedicalWaste
+AFTER DELETE
+AS
+ 
+DECLARE @Table TABLE(
+        SPID INT,
+        Status VARCHAR(MAX),
+        LOGIN VARCHAR(MAX),
+        HostName VARCHAR(MAX),
+        BlkBy VARCHAR(MAX),
+        DBName VARCHAR(MAX),
+        Command VARCHAR(MAX),
+        CPUTime INT,
+        DiskIO INT,
+        LastBatch VARCHAR(MAX),
+        ProgramName VARCHAR(MAX),
+        SPID_1 INT,
+        REQUESTID INT
+)
+
+INSERT INTO @Table EXEC sp_who2
+
+INSERT INTO USERLOGS
+SELECT  [LOGIN], HostName,DBName,LastBatch,SPID_1,GETDATE(),'Medical waste delete log'
+FROM    @Table
+
+-- end trigger 9
+
+CREATE TRIGGER LOG_TRIGGER_RadioLogicalDEL
+ON dbo.RadioLogical
+AFTER DELETE
+AS
+ 
+DECLARE @Table TABLE(
+        SPID INT,
+        Status VARCHAR(MAX),
+        LOGIN VARCHAR(MAX),
+        HostName VARCHAR(MAX),
+        BlkBy VARCHAR(MAX),
+        DBName VARCHAR(MAX),
+        Command VARCHAR(MAX),
+        CPUTime INT,
+        DiskIO INT,
+        LastBatch VARCHAR(MAX),
+        ProgramName VARCHAR(MAX),
+        SPID_1 INT,
+        REQUESTID INT
+)
+
+INSERT INTO @Table EXEC sp_who2
+
+INSERT INTO USERLOGS
+SELECT  [LOGIN], HostName,DBName,LastBatch,SPID_1,GETDATE(),'radiological medical supply delete'
+FROM    @Table
+
+-- trigger delete 2
+CREATE TRIGGER Computers_Case_Correction
+ON dbo.COMPUTERS
+AFTER INSERT
+AS
+UPDATE dbo.COMPUTERS
+SET cCurrentLoc = UPPER(cCurrentLoc)
+WHERE dbo.COMPUTERS.computerID IN(SELECT computerID FROM inserted)
+-- upper trigger 1
+
+CREATE TRIGGER MedicalWaste_Case_Correction
+ON dbo.medicalWaste
+AFTER INSERT
+AS
+UPDATE dbo.MedicalWaste
+SET mWType = UPPER(mWType)
+WHERE dbo.MedicalWaste.mWID IN(SELECT mWID FROM inserted)
+-- upper trigger 2
