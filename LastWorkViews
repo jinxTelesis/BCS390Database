@@ -34,3 +34,12 @@ ON m.sCID = sc.sCID
 
 SELECT * FROM Medium_SITE_EQUID_INFO
 WHERE mEID = 1
+
+CREATE VIEW SMALL_EQUIP_MED_INFO as
+SELECT sc.sContractCostPY, sc.sCProvider,sc.sCRating,sc.sCtimeToHonor,s.sEID,s.sCostPer,s.sDescription,s.sELoc
+FROM dbo.SMALL_EQUIP_MED as s
+JOIN dbo.SERVICE_CONTRACT as sc
+ON s.sCID = sc.sCID
+
+SELECT * FROM SMALL_EQUIP_MED
+WHERE sEID = 1
