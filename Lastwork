@@ -39,3 +39,52 @@ VALUES(@mWType,@mWLimit,@mWCurrent,@mwRegularRemoval,@bID)
 
 EXEC spInsetMedicalWaste
 	15,'bio9',1,100,50,28;
+	
+	CREATE PROC spINSERT_OFFICE_SUPPLIES
+@oSID INT = NULL,
+@oSName varchar(50) = NULL,
+@oSHistoricUse int = NULL,
+@oSCost money = NULL,
+@oSCurrentSupplier varchar(50) = NULL,
+@oSnumber int = NULL,
+@oSReorderID int = NULL,
+@bID int = NULL
+AS
+if EXISTS(SELECT * FROM dbo.OFFICE_SUPPLIES WHERE oSID = @oSID)
+	BEGIN
+		Raiserror('That value already exists',16,1)
+	END
+if @oSName is NULL
+	BEGIN
+		Raiserror('oSNAME is required',16, 1)
+	END
+if @oSHistoricUse is NULL
+	BEGIN
+		Raiserror('Historic Use is required',16, 1)
+	END
+if @osCost is NULL
+	BEGIN
+		Raiserror('Cost value is required',16, 1)
+	END
+if @oSCurrentSupplier is NULL
+	BEGIN
+		Raiserror('Current Supplier is required',16, 1)
+	END
+if @oSnumber is NULL
+	BEGIN
+		Raiserror(' Suppliers number is required',16, 1)
+	END
+if @oSReorderID is NULL
+	BEGIN
+		Raiserror(' Reorder level is required',16, 1)
+	END
+if @bID is NULL
+	BEGIN
+		Raiserror('Building ID required to know where office supplier are located',16, 1)
+	END
+
+INSERT dbo.OFFICE_SUPPLIES
+VALUES(@oSName,@oSHistoricUse,@oSCost,@oSCurrentSupplier,@oSnumber,@oSReorderID,@bID)
+
+EXEC spINSERT_OFFICE_SUPPLIES
+	12,'markers',70,2.00,'CDW',1,1,1
