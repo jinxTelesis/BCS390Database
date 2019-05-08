@@ -16,3 +16,12 @@ ON os.oSReorderID = srl.sReorderID
 
 SELECT * FROM OfficeSuppplyINFO
 WHERE oSCost < 100
+
+CREATE VIEW LARGE_SITE_EQUID_INFO as
+SELECT sc.sContractCostPY,sc.sCProvider,sc.sCRating,sc.sCtimeToHonor,l.LargeEID,l.LCostPerYear,l.LECondition,l.LEName
+FROM dbo.LARGE_SITE_EQUID_MED as l
+JOIN dbo.SERVICE_CONTRACT as sc
+ON l.sCID = sc.sCID
+
+SELECT * FROM LARGE_SITE_EQUID_INFO
+WHERE LargeEID = 1
