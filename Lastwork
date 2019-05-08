@@ -241,4 +241,121 @@ VALUES(@type,@cost,@softwareID1,@softwareID2,@softwareID3,@softwareID4,@software
 
 EXEC spINSERT_COMPUTER
 	19,'s',100.7,1,2,3,4,1,'AAA','2019-10-10',1,1
+	
+CREATE PROC spUPDATE_EQUIP_MED
+@mEID int = NULL,
+@mEName varchar(50) = NULL,
+@mELoc varchar(10) = NULL,
+@mEOwnershipDate DATE = NULL,
+@mECondtion varchar(10) = NULL,
+@mEAverageUsePerYear int = NULL,
+@mDescription varchar(250) = NULL,
+@mCostPerYear money = NULL,
+@sCID int = NULL,
+@bID int = NULL
+
+AS
+if NOT EXISTS(SELECT * FROM dbo.MEDIUM_EQUIP_MED WHERE mEID = @mEID)
+	BEGIN
+		Raiserror('That value does not exist cant update!',16,1)
+	END
+if @mEName is NULL
+	BEGIN
+		Raiserror('Equipment name is required',16, 1)
+	END
+if @mELoc is NULL
+	BEGIN
+		Raiserror('Equipment Location is required',16, 1)
+	END
+if @mEOwnershipDate is NULL
+	BEGIN
+		Raiserror('Equipment Ownership Date is required',16, 1)
+	END
+if @mECondtion is NULL
+	BEGIN
+		Raiserror('Equipment Condtion is required',16, 1)
+	END
+if @mEAverageUsePerYear is NULL
+	BEGIN
+		Raiserror('Average equipment user per year is required',16, 1)
+	END
+if @mDescription is NULL
+	BEGIN
+		Raiserror('Equipment description is required',16, 1)
+	END
+if @mCostPerYear is NULL
+	BEGIN
+		Raiserror('Equipment cost per year is required',16, 1)
+	END
+if @sCID is NULL
+	BEGIN
+		Raiserror('sCID is required field',16, 1)
+	END
+if @bID is NULL
+	BEGIN
+		Raiserror('Building id is required ',16, 1)
+	END
+UPDATE dbo.MEDIUM_EQUIP_MED
+SET mEName = @mEName, mELoc = @mELoc, mEOwnershipDate = @mEOwnershipDate, mECondition = @mECondtion,
+mEAverageUsePerYear = @mEAverageUsePerYear, mCostPerYear = @mCostPerYear, sCID = @sCID, bID = @bID
+
+EXEC spUPDATE_EQUIP_MED
+	7,'ECO flow','AAA','2019-10-10','GREAT',100,'blah blah blah',100.0,1,1
+	
+	CREATE PROC spUPDATE_EQUIP_SMALL
+@sEID int = NULL,
+@sEName varchar(50) = NULL,
+@sELoc varchar(10) = NULL,
+@sEOwnershipDate DATE = NULL,
+@sEAverageUsePerYear int = NULL,
+@sDescription varchar(250) = NULL,
+@sCostPerYear money = NULL,
+@sCID int = NULL,
+@bID int = NULL
+
+AS
+if EXISTS(SELECT * FROM dbo.SMALL_EQUIP_MED WHERE sEID = @sEID)
+	BEGIN
+		Raiserror('That value does not exist cant update!',16,1)
+	END
+if @sEName is NULL
+	BEGIN
+		Raiserror('Equipment name is required',16, 1)
+	END
+if @sELoc is NULL
+	BEGIN
+		Raiserror('Equipment Location is required',16, 1)
+	END
+if @sEOwnershipDate is NULL
+	BEGIN
+		Raiserror('Equipment Ownership Date is required',16, 1)
+	END
+if @sEAverageUsePerYear is NULL
+	BEGIN
+		Raiserror('Average equipment user per year is required',16, 1)
+	END
+if @sDescription is NULL
+	BEGIN
+		Raiserror('Equipment description is required',16, 1)
+	END
+if @sCostPerYear is NULL
+	BEGIN
+		Raiserror('Equipment cost per year is required',16, 1)
+	END
+if @sCID is NULL
+	BEGIN
+		Raiserror('sCID is required field',16, 1)
+	END
+if @bID is NULL
+	BEGIN
+		Raiserror('building is a required field',16, 1)
+	END
+
+UPDATE dbo.SMALL_EQUIP_MED
+SET sEName = @sEName, sELoc = @sELoc, sEOwnershipDate = @sEOwnershipDate,
+sEAverageUserPerYear = @sEAverageUsePerYear,sDescription = @sDescription,sCostPer = @sCostPerYear, sCID = @sCID, bID = @bID
+
+
+EXEC spUPDATE_EQUIP_SMALL
+	7,'ECO flow','AAA','2019-10-10',100,'A great product for a hospital',100.0,1,1
 
