@@ -60,3 +60,14 @@ BEGIN
 END
 
 PRINT 'total depretiation ' + CONVERT(varchar,dbo.CompDepretiation(),1);
+
+ALTER FUNCTION valuePerYear
+	(@id int = null)
+	RETURNS money
+BEGIN
+	RETURN(SELECT LCostPerYear FROM dbo.LARGE_SITE_EQUID_MED WHERE LargeEID = @id) /
+	 (SELECT LEAverageUsePerYear FROM dbo.LARGE_SITE_EQUID_MED WHERE LargeEID = @id)
+	
+END
+
+PRINT 'cost divided by use ' + CONVERT(varchar,dbo.valuePerYear(1),1);
