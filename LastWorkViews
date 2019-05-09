@@ -91,3 +91,11 @@ BEGIN
 END
 
 PRINT 'cost divided by use ' + CONVERT(varchar,dbo.valuePerYearSmall(1),1);
+
+CREATE FUNCTION serContractPerYear()
+	RETURNS money
+BEGIN
+	RETURN(SELECT SUM(sCONTRACTCOSTPY) FROM DBO.SERVICE_CONTRACT)
+END
+
+PRINT 'total of service contracts ' + CONVERT(varchar,dbo.serContractPerYear(),1);
