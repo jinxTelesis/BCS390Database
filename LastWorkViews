@@ -52,3 +52,11 @@ on r.bID = b.bID
 
 SELECT * FROM RADIOLOGCIAL_INFO
 WHERE bID = 1
+
+CREATE FUNCTION CompDepretiation()
+	RETURNS money
+BEGIN
+	RETURN((Select SUM(cost) FROM dbo.COMPUTERS) * .1)
+END
+
+PRINT 'total depretiation ' + CONVERT(varchar,dbo.CompDepretiation(),1);
