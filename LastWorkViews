@@ -81,3 +81,13 @@ BEGIN
 END
 
 PRINT 'cost divided by use ' + CONVERT(varchar,dbo.valuePerYearMed(1),1);
+
+CREATE FUNCTION valuePerYearSmall
+	(@id int = null)
+	RETURNS money
+BEGIN
+	RETURN(SELECT sCostPer FROM dbo.SMALL_EQUIP_MED where sEID = @id) /
+	(SELECT sEAverageUserPerYear FROM dbo.SMALL_EQUIP_MED where sEID = @id)
+END
+
+PRINT 'cost divided by use ' + CONVERT(varchar,dbo.valuePerYearSmall(1),1);
